@@ -1,0 +1,890 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  background: #f7f8f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.08), transparent 28rem),
+    #f7f8f8;
+  color: #1f2933;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+.document-preview-route {
+  min-height: 100vh;
+  background: #e5e5e5;
+  color: #111;
+  font-family: "Yu Gothic", "Meiryo", "Noto Sans JP", sans-serif;
+  padding: 18px;
+}
+
+.document-preview-route-au {
+  font-family: Arial, Helvetica, Inter, sans-serif;
+}
+
+.document-preview-route * {
+  box-sizing: border-box;
+}
+
+.document-preview-toolbar {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 0 auto 12px;
+  width: 210mm;
+}
+
+.document-preview-toolbar button {
+  background: #111;
+  border: 1px solid #111;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 38px;
+  padding: 8px 14px;
+}
+
+.document-preview-toolbar button + button {
+  background: #fff;
+  color: #111;
+}
+
+.pdf-page {
+  background: white;
+  box-shadow: 0 16px 36px rgb(0 0 0 / 0.16);
+  margin: 0 auto;
+  min-height: 297mm;
+  padding: 12mm;
+  width: 210mm;
+}
+
+.pdf-header {
+  align-items: flex-start;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 72mm;
+}
+
+.pdf-title {
+  color: #111;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin: 0;
+}
+
+.pdf-brand {
+  color: #555;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 2mm;
+  text-transform: uppercase;
+}
+
+.pdf-message,
+.pdf-muted {
+  color: #444;
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+
+.pdf-meta {
+  border: 1px solid #111;
+}
+
+.pdf-meta p {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 27mm 1fr;
+  margin: 0;
+  min-height: 10mm;
+}
+
+.pdf-meta p + p {
+  border-top: 1px solid #111;
+}
+
+.pdf-meta span,
+.pdf-meta strong {
+  align-items: center;
+  display: flex;
+  padding: 4px 6px;
+}
+
+.pdf-meta span {
+  background: #f3f3f3;
+  border-right: 1px solid #111;
+  font-weight: 700;
+}
+
+.pdf-parties {
+  display: grid;
+  gap: 14mm;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 14mm;
+}
+
+.pdf-party {
+  border: 1px solid #111;
+  min-height: 42mm;
+  padding: 7mm;
+  position: relative;
+}
+
+.pdf-client h2 {
+  border-bottom: 1px solid #111;
+  display: inline-block;
+  font-size: 20px;
+  margin: 6mm 0 0;
+  min-width: 70mm;
+  padding-bottom: 2mm;
+}
+
+.pdf-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.pdf-party h2 {
+  font-size: 16px;
+  margin: 0 0 5mm;
+}
+
+.pdf-party dl,
+.pdf-box dl {
+  display: grid;
+  gap: 2mm;
+  margin: 0;
+}
+
+.pdf-party dl div,
+.pdf-box dl div {
+  display: grid;
+  gap: 3mm;
+  grid-template-columns: 32mm 1fr;
+}
+
+.pdf-party dt,
+.pdf-box dt {
+  color: #444;
+  font-weight: 700;
+}
+
+.pdf-party dd,
+.pdf-box dd {
+  margin: 0;
+}
+
+.pdf-stamp {
+  align-items: center;
+  border: 1px solid #111;
+  display: flex;
+  height: 22mm;
+  justify-content: center;
+  position: absolute;
+  right: 7mm;
+  top: 7mm;
+  width: 22mm;
+}
+
+.pdf-total-summary {
+  align-items: end;
+  display: grid;
+  gap: 10mm;
+  grid-template-columns: 1fr 72mm;
+  margin-top: 12mm;
+}
+
+.pdf-total-summary p {
+  margin: 0 0 2mm;
+}
+
+.pdf-total-summary div:last-child {
+  border-bottom: 2px solid #111;
+  padding-bottom: 3mm;
+  text-align: right;
+}
+
+.pdf-total-summary span {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pdf-total-summary strong {
+  display: block;
+  font-size: 26px;
+}
+
+.pdf-table {
+  margin-top: 10mm;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.pdf-table th,
+.pdf-table td,
+.pdf-totals th,
+.pdf-totals td {
+  border: 1px solid #111;
+  padding: 2.4mm 2.2mm;
+  vertical-align: top;
+}
+
+.pdf-table th,
+.pdf-totals th {
+  background: #f2f2f2;
+  font-weight: 700;
+}
+
+.pdf-table th:nth-child(1) {
+  width: 22mm;
+}
+
+.pdf-table th:nth-child(3) {
+  width: 24mm;
+}
+
+.pdf-table th:nth-child(4) {
+  width: 16mm;
+}
+
+.pdf-table th:nth-child(5),
+.pdf-table th:nth-child(6) {
+  width: 25mm;
+}
+
+.pdf-right {
+  text-align: right;
+}
+
+.pdf-center {
+  text-align: center;
+}
+
+.pdf-bottom-grid {
+  align-items: start;
+  display: grid;
+  gap: 10mm;
+  grid-template-columns: 1fr 64mm;
+  margin-top: 10mm;
+}
+
+.pdf-box {
+  border: 1px solid #111;
+  padding: 5mm;
+}
+
+.pdf-box h3,
+.pdf-notes h3 {
+  font-size: 13px;
+  margin: 0 0 3mm;
+}
+
+.pdf-bank-text {
+  border-top: 1px solid #111;
+  margin: 4mm 0 0;
+  padding-top: 3mm;
+  white-space: pre-wrap;
+}
+
+.pdf-totals {
+  width: 100%;
+}
+
+.pdf-totals td {
+  font-weight: 700;
+  text-align: right;
+}
+
+.pdf-notes {
+  border: 1px solid #111;
+  margin-top: 10mm;
+  min-height: 20mm;
+  padding: 5mm;
+}
+
+.pdf-notes p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.pdf-signature {
+  display: grid;
+  gap: 18mm;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 12mm;
+}
+
+.pdf-signature div {
+  border-bottom: 1px solid #111;
+  height: 18mm;
+  position: relative;
+}
+
+.pdf-signature span {
+  bottom: -7mm;
+  color: #444;
+  left: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+}
+
+.pdf-page-au {
+  font-family: Arial, Helvetica, Inter, sans-serif;
+}
+
+.au-header {
+  align-items: start;
+  border-bottom: 3px solid #111;
+  display: grid;
+  gap: 18mm;
+  grid-template-columns: 1fr 72mm;
+  padding-bottom: 8mm;
+}
+
+.au-kicker {
+  color: #555;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  margin: 0 0 3mm;
+  text-transform: uppercase;
+}
+
+.au-title {
+  color: #111;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.au-message {
+  color: #444;
+  font-size: 12px;
+  margin: 3mm 0 0;
+}
+
+.au-meta {
+  border: 1px solid #111;
+}
+
+.au-meta p {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: 28mm 1fr;
+  margin: 0;
+  min-height: 10mm;
+}
+
+.au-meta p + p {
+  border-top: 1px solid #111;
+}
+
+.au-meta span,
+.au-meta strong {
+  align-items: center;
+  display: flex;
+  padding: 4px 6px;
+}
+
+.au-meta span {
+  background: #f2f2f2;
+  border-right: 1px solid #111;
+  font-weight: 700;
+}
+
+.au-parties {
+  display: grid;
+  gap: 14mm;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 12mm;
+}
+
+.au-parties h2 {
+  border-bottom: 1px solid #111;
+  font-size: 13px;
+  margin: 0 0 5mm;
+  padding-bottom: 2mm;
+  text-transform: uppercase;
+}
+
+.au-client-name,
+.au-business-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 4mm;
+}
+
+.au-details {
+  display: grid;
+  gap: 2mm;
+  margin: 0;
+}
+
+.au-details div {
+  display: grid;
+  gap: 3mm;
+  grid-template-columns: 26mm 1fr;
+}
+
+.au-details dt {
+  color: #444;
+  font-weight: 700;
+}
+
+.au-details dd {
+  margin: 0;
+}
+
+.au-balance {
+  align-items: center;
+  display: grid;
+  gap: 8mm;
+  grid-template-columns: 72mm 1fr;
+  margin-top: 10mm;
+}
+
+.au-balance div {
+  background: #111;
+  color: #fff;
+  padding: 5mm;
+}
+
+.au-balance span,
+.au-balance strong {
+  display: block;
+}
+
+.au-balance span {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.au-balance strong {
+  font-size: 28px;
+}
+
+.au-balance p {
+  color: #444;
+  margin: 0;
+}
+
+.au-table th {
+  background: #111;
+  color: #fff;
+}
+
+.au-bottom-grid {
+  grid-template-columns: 1fr 70mm;
+}
+
+.pdf-page {
+  color: #111;
+  font-size: 11px;
+  line-height: 1.35;
+  overflow: visible;
+}
+
+.pdf-page,
+.pdf-page * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.pdf-header,
+.au-header {
+  gap: 8mm;
+  grid-template-columns: minmax(0, 1fr) minmax(54mm, 66mm);
+}
+
+.pdf-title,
+.au-title {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.pdf-title {
+  font-size: 27px;
+  line-height: 1.15;
+}
+
+.au-title {
+  font-size: 30px;
+  line-height: 1.08;
+}
+
+.pdf-message,
+.pdf-muted,
+.au-message {
+  line-height: 1.4;
+}
+
+.pdf-meta,
+.au-meta {
+  font-size: 10.5px;
+  overflow: hidden;
+}
+
+.pdf-meta p,
+.au-meta p {
+  gap: 0;
+  grid-template-columns: minmax(23mm, 27mm) minmax(0, 1fr);
+  min-height: 8.5mm;
+}
+
+.pdf-meta span,
+.pdf-meta strong,
+.au-meta span,
+.au-meta strong {
+  min-width: 0;
+  overflow: hidden;
+  padding: 3px 5px;
+  text-overflow: ellipsis;
+}
+
+.pdf-meta strong,
+.au-meta strong {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.pdf-parties,
+.au-parties {
+  gap: 6mm;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin-top: 8mm;
+}
+
+.pdf-party {
+  min-height: 0;
+  overflow: hidden;
+  padding: 4.5mm;
+}
+
+.pdf-client h2 {
+  display: block;
+  font-size: 17px;
+  line-height: 1.25;
+  margin: 3mm 0 4mm;
+  min-width: 0;
+}
+
+.pdf-party h2,
+.au-client-name,
+.au-business-name {
+  font-size: 15px;
+  line-height: 1.25;
+  margin-bottom: 3mm;
+}
+
+.pdf-party dl,
+.pdf-box dl,
+.au-details {
+  gap: 1.3mm;
+}
+
+.pdf-party dl div,
+.pdf-box dl div,
+.au-details div {
+  gap: 2mm;
+  grid-template-columns: minmax(22mm, 31mm) minmax(0, 1fr);
+}
+
+.pdf-party dt,
+.pdf-box dt,
+.au-details dt {
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.pdf-party dd,
+.pdf-box dd,
+.au-details dd {
+  font-size: 10.5px;
+  line-height: 1.35;
+}
+
+.pdf-stamp {
+  height: 17mm;
+  margin-left: auto;
+  margin-top: 3mm;
+  position: static;
+  width: 17mm;
+}
+
+.pdf-total-summary,
+.au-balance {
+  gap: 6mm;
+  grid-template-columns: minmax(0, 1fr) minmax(48mm, 62mm);
+  margin-top: 7mm;
+}
+
+.pdf-total-summary strong,
+.au-balance strong {
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.pdf-total-summary div:last-child {
+  min-width: 0;
+}
+
+.pdf-table {
+  font-size: 10px;
+  line-height: 1.3;
+  margin-top: 6mm;
+  table-layout: fixed;
+}
+
+.pdf-col-date {
+  width: 22mm;
+}
+
+.pdf-col-quantity {
+  width: 19mm;
+}
+
+.pdf-col-unit {
+  width: 13mm;
+}
+
+.pdf-col-money {
+  width: 24mm;
+}
+
+.pdf-table th,
+.pdf-table td,
+.pdf-totals th,
+.pdf-totals td {
+  overflow: hidden;
+  padding: 1.6mm 1.7mm;
+}
+
+.pdf-table th,
+.pdf-table td {
+  max-width: 0;
+}
+
+.pdf-table th:nth-child(1),
+.pdf-table td:nth-child(1),
+.pdf-table th:nth-child(3),
+.pdf-table td:nth-child(3),
+.pdf-table th:nth-child(4),
+.pdf-table td:nth-child(4),
+.pdf-table th:nth-child(5),
+.pdf-table td:nth-child(5),
+.pdf-table th:nth-child(6),
+.pdf-table td:nth-child(6) {
+  font-size: 9.4px;
+  line-height: 1.22;
+}
+
+.pdf-table th:nth-child(1),
+.pdf-table td:nth-child(1) {
+  text-align: center;
+}
+
+.pdf-table th:nth-child(5),
+.pdf-table td:nth-child(5),
+.pdf-table th:nth-child(6),
+.pdf-table td:nth-child(6),
+.pdf-totals td {
+  text-align: right;
+}
+
+.pdf-bottom-grid,
+.au-bottom-grid {
+  gap: 6mm;
+  grid-template-columns: minmax(0, 1fr) minmax(54mm, 62mm);
+  margin-top: 6mm;
+}
+
+.pdf-box {
+  overflow: hidden;
+  padding: 3.5mm;
+}
+
+.pdf-box h3,
+.pdf-notes h3 {
+  font-size: 11.5px;
+  margin-bottom: 2mm;
+}
+
+.pdf-bank-text {
+  margin-top: 2.5mm;
+  padding-top: 2.5mm;
+}
+
+.pdf-notes {
+  margin-top: 6mm;
+  min-height: 0;
+  overflow: hidden;
+  padding: 3.5mm;
+}
+
+.pdf-notes p {
+  font-size: 10.5px;
+  line-height: 1.35;
+}
+
+.pdf-signature {
+  gap: 10mm;
+  margin-top: 8mm;
+}
+
+.pdf-signature div {
+  height: 12mm;
+}
+
+.pdf-signature span {
+  bottom: -5.5mm;
+  font-size: 10px;
+}
+
+.au-header {
+  padding-bottom: 5mm;
+}
+
+.au-kicker {
+  margin-bottom: 2mm;
+}
+
+.au-parties {
+  margin-top: 8mm;
+}
+
+.au-parties h2 {
+  margin-bottom: 3mm;
+  padding-bottom: 1.5mm;
+}
+
+.au-balance div {
+  padding: 3.5mm;
+}
+
+.au-balance span {
+  font-size: 10.5px;
+}
+
+.au-balance p {
+  font-size: 10.5px;
+}
+
+@media print {
+  html,
+  body {
+    -webkit-print-color-adjust: exact;
+    background: #fff !important;
+    margin: 0;
+    min-height: auto;
+    padding: 0;
+    print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .document-preview-route {
+    background: #fff;
+    min-height: auto;
+    padding: 0;
+  }
+
+  .pdf-page {
+    background: white;
+    box-shadow: none;
+    margin: 0;
+    min-height: auto;
+    overflow: visible;
+    padding: 0;
+    width: auto;
+  }
+
+  .pdf-header,
+  .au-header,
+  .pdf-parties,
+  .au-parties,
+  .pdf-total-summary,
+  .au-balance,
+  .pdf-bottom-grid,
+  .pdf-notes,
+  .pdf-signature {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .pdf-table {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  .pdf-table thead {
+    display: table-header-group;
+  }
+
+  .pdf-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+@layer components {
+  .page-title {
+    @apply text-2xl font-semibold tracking-normal text-ink sm:text-3xl;
+  }
+
+  .section-panel {
+    @apply rounded-lg border border-line bg-white p-4 shadow-soft sm:p-6;
+  }
+
+  .table-wrap {
+    @apply overflow-x-auto rounded-lg border border-line bg-white;
+  }
+
+  .data-table {
+    @apply min-w-full divide-y divide-line text-left text-sm;
+  }
+
+  .data-table th {
+    @apply whitespace-nowrap bg-paper px-4 py-3 font-semibold text-zinc-700;
+  }
+
+  .data-table td {
+    @apply whitespace-nowrap px-4 py-3 text-zinc-700;
+  }
+}
