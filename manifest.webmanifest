@@ -1,0 +1,17 @@
+{
+  "name": "OKH WorkLedger",
+  "short_name": "OKH Ledger",
+  "description": "Time tracking and invoices for contractors in Japan and Australia.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#f7f8f8",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
