@@ -9,19 +9,21 @@ export function LanguageSwitcher() {
   const { language, setLanguage, t } = useLanguage();
 
   return (
-    <div className="flex items-center gap-1 rounded-md border border-line bg-white p-1" aria-label={t("language")}>
-      <Globe2 className="ml-2 h-4 w-4 text-zinc-500" aria-hidden="true" />
+    <div className="flex min-w-0 items-center gap-0.5 rounded-md border border-line bg-white p-1 sm:gap-1" aria-label={t("language")}>
+      <Globe2 className="mx-1 h-4 w-4 shrink-0 text-zinc-500 sm:ml-2 sm:mr-0" aria-hidden="true" />
       {languages.map((item) => (
         <button
           className={cn(
-            "rounded px-2.5 py-1.5 text-xs font-semibold transition",
+            "min-h-7 rounded px-1.5 py-1 text-[11px] font-semibold leading-none transition sm:px-2.5 sm:py-1.5 sm:text-xs",
             language === item.code ? "bg-jade-50 text-jade-700" : "text-zinc-600 hover:bg-paper"
           )}
           key={item.code}
           onClick={() => setLanguage(item.code)}
+          title={item.label}
           type="button"
         >
-          {item.label}
+          <span className="sm:hidden">{item.code.toUpperCase()}</span>
+          <span className="hidden sm:inline">{item.label}</span>
         </button>
       ))}
     </div>

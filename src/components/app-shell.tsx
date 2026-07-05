@@ -7,6 +7,7 @@ import { BarChart3, BriefcaseBusiness, Building2, ClipboardCheck, FileText, LogO
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { PortalSwitcher } from "@/components/portal-switcher";
 import { Button } from "@/components/ui/button";
+import type { Language } from "@/lib/i18n/translations";
 import { useLanguage } from "@/lib/i18n/useLanguage";
 import { getSupabaseBrowser } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
@@ -23,24 +24,55 @@ const navigation = [
   { href: "/settings", labelKey: "settings", icon: Settings }
 ] as const;
 
+const mobileNavigationHrefs = ["/dashboard", "/timecard", "/clients", "/contractors", "/documents"] as const;
+type MobileNavigationHref = (typeof mobileNavigationHrefs)[number];
+const mobileNavigation = navigation.filter((item): item is Extract<(typeof navigation)[number], { href: MobileNavigationHref }> =>
+  mobileNavigationHrefs.includes(item.href as MobileNavigationHref)
+);
+
+const mobileNavigationLabels: Record<Language, Record<MobileNavigationHref, string>> = {
+  pt: {
+    "/dashboard": "Painel",
+    "/timecard": "Lançar",
+    "/clients": "Clientes",
+    "/contractors": "Contratantes",
+    "/documents": "Docs"
+  },
+  ja: {
+    "/dashboard": "\u30db\u30fc\u30e0",
+    "/timecard": "\u5165\u529b",
+    "/clients": "\u53d6\u5f15\u5148",
+    "/contractors": "\u767a\u6ce8\u8005",
+    "/documents": "\u66f8\u985e"
+  },
+  en: {
+    "/dashboard": "Home",
+    "/timecard": "Entries",
+    "/clients": "Clients",
+    "/contractors": "Contractors",
+    "/documents": "Docs"
+  }
+};
+
 function NavLink({ item, compact = false }: { item: (typeof navigation)[number]; compact?: boolean }) {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
   const Icon = item.icon;
+  const label = compact && item.href in mobileNavigationLabels[language] ? mobileNavigationLabels[language][item.href as MobileNavigationHref] : t(item.labelKey);
 
   return (
     <Link
       className={cn(
-        "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition",
+        "flex min-w-0 items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition",
         isActive ? "bg-jade-50 text-jade-700" : "text-zinc-600 hover:bg-paper hover:text-ink",
-        compact && "grid justify-items-center gap-1 px-2 py-2 text-[11px]"
+        compact && "grid h-14 justify-items-center gap-0.5 px-1 py-1.5 text-[10px]"
       )}
       href={item.href}
       title={t(item.labelKey)}
     >
-      <Icon className="h-5 w-5" aria-hidden="true" />
-      <span className={compact ? "leading-none" : ""}>{t(item.labelKey)}</span>
+      <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
+      <span className={compact ? "block max-w-full truncate whitespace-nowrap text-center leading-tight" : "min-w-0 truncate"}>{label}</span>
     </Link>
   );
 }
@@ -124,8 +156,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   if (configError) {
     return (
-      <main className="flex min-h-screen items-center justify-center p-6">
-        <section className="max-w-lg rounded-lg border border-line bg-white p-6 shadow-soft">
+      <main className="flex min-h-screen items-center justify-center p-3 sm:p-6">
+        <section className="w-full max-w-lg rounded-lg border border-line bg-white p-4 shadow-soft sm:p-6">
           <p className="text-sm font-semibold text-jade-700">{t("configNeeded")}</p>
           <h1 className="mt-2 text-2xl font-semibold text-ink">{t("connectSupabase")}</h1>
           <p className="mt-3 text-sm text-zinc-600">{configError}</p>
@@ -167,24 +199,24 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       <div className="md:pl-72">
-        <header className="sticky top-0 z-20 border-b border-line bg-white/92 px-4 py-3 backdrop-blur md:px-8">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <header className="sticky top-0 z-20 border-b border-line bg-white/92 px-3 py-2.5 backdrop-blur sm:px-4 sm:py-3 md:px-8">
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-xs font-medium text-zinc-500 md:hidden">
                 <Menu className="h-4 w-4" aria-hidden="true" />
                 OKH WorkLedger
               </div>
-              <h1 className="truncate text-lg font-semibold text-ink md:text-xl">{currentTitle}</h1>
+              <h1 className="truncate text-base font-semibold text-ink sm:text-lg md:text-xl">{currentTitle}</h1>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2 md:gap-3">
               {isAdminUser ? (
-                <Link className="inline-flex min-h-10 items-center gap-2 rounded-md border border-line bg-white px-3 py-2 text-sm font-semibold text-ink transition hover:bg-paper" href="/admin">
+                <Link className="inline-flex min-h-9 items-center gap-1.5 rounded-md border border-line bg-white px-2.5 py-1.5 text-xs font-semibold text-ink transition hover:bg-paper sm:min-h-10 sm:gap-2 sm:px-3 sm:py-2 sm:text-sm" href="/admin">
                   <Shield className="h-4 w-4" aria-hidden="true" />
                   Admin
                 </Link>
               ) : null}
               {isClientCompany ? (
-                <Link className="inline-flex min-h-10 items-center gap-2 rounded-md border border-line bg-white px-3 py-2 text-sm font-semibold text-ink transition hover:bg-paper" href="/client-portal/dashboard">
+                <Link className="inline-flex min-h-9 items-center gap-1.5 rounded-md border border-line bg-white px-2.5 py-1.5 text-xs font-semibold text-ink transition hover:bg-paper sm:min-h-10 sm:gap-2 sm:px-3 sm:py-2 sm:text-sm" href="/client-portal/dashboard">
                   <Building2 className="h-4 w-4" aria-hidden="true" />
                   Portal
                 </Link>
@@ -192,7 +224,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               {userType === "both" ? <PortalSwitcher /> : null}
               <LanguageSwitcher />
               <span className="hidden max-w-48 truncate text-sm text-zinc-500 lg:block">{userEmail}</span>
-              <Button type="button" variant="secondary" onClick={handleLogout}>
+              <Button className="min-h-9 px-2.5 py-1.5 sm:min-h-10 sm:px-4 sm:py-2" type="button" variant="secondary" onClick={handleLogout} title={t("logout")}>
                 <LogOut className="h-4 w-4" aria-hidden="true" />
                 <span className="hidden sm:inline">{t("logout")}</span>
               </Button>
@@ -200,11 +232,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-7xl px-4 py-6 md:px-8">{children}</main>
+        <main className="mx-auto w-full max-w-7xl min-w-0 px-3 py-4 sm:px-4 sm:py-6 md:px-8">{children}</main>
       </div>
 
-      <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t border-line bg-white px-2 py-2 md:hidden">
-        {navigation.slice(0, 5).map((item) => (
+      <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 gap-0.5 border-t border-line bg-white px-1 py-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] md:hidden">
+        {mobileNavigation.map((item) => (
           <NavLink compact item={item} key={item.href} />
         ))}
       </nav>

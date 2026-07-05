@@ -11,12 +11,21 @@
   box-sizing: border-box;
 }
 
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
+  max-width: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at top left, rgba(15, 118, 110, 0.08), transparent 28rem),
     #f7f8f8;
   color: #1f2933;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -24,6 +33,17 @@ input,
 textarea,
 select {
   font: inherit;
+  max-width: 100%;
+}
+
+form,
+fieldset,
+label,
+main,
+section,
+article,
+div {
+  min-width: 0;
 }
 
 table {
@@ -32,11 +52,13 @@ table {
 
 @page {
   size: A4;
-  margin: 12mm;
+  margin: 10mm;
 }
 
 .document-preview-route {
   min-height: 100vh;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
   background: #e5e5e5;
   color: #111;
   font-family: "Yu Gothic", "Meiryo", "Noto Sans JP", sans-serif;
@@ -54,10 +76,13 @@ table {
 .document-preview-toolbar {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
   margin: 0 auto 12px;
-  width: 210mm;
+  max-width: 210mm;
+  min-width: 0;
+  width: 100%;
 }
 
 .document-preview-toolbar button {
@@ -79,6 +104,7 @@ table {
 .pdf-page {
   background: white;
   box-shadow: 0 16px 36px rgb(0 0 0 / 0.16);
+  flex: 0 0 auto;
   margin: 0 auto;
   min-height: 297mm;
   padding: 12mm;
@@ -804,13 +830,37 @@ table {
   font-size: 10.5px;
 }
 
+@media screen and (max-width: 640px) {
+  .document-preview-route {
+    padding: 10px;
+  }
+
+  .document-preview-toolbar {
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    width: min(100%, 210mm);
+  }
+
+  .document-preview-toolbar button {
+    min-height: 34px;
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .pdf-page {
+    margin: 0;
+  }
+}
+
 @media print {
   html,
   body {
     -webkit-print-color-adjust: exact;
     background: #fff !important;
+    max-width: none;
     margin: 0;
     min-height: auto;
+    overflow: visible !important;
     padding: 0;
     print-color-adjust: exact;
   }
@@ -822,6 +872,7 @@ table {
   .document-preview-route {
     background: #fff;
     min-height: auto;
+    overflow: visible !important;
     padding: 0;
   }
 
@@ -832,6 +883,7 @@ table {
     min-height: auto;
     overflow: visible;
     padding: 0;
+    transform: none !important;
     width: auto;
   }
 

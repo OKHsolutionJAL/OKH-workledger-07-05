@@ -99,7 +99,7 @@ const documentGeneratorText: Record<
     australia: "Austr\u00e1lia",
     japanHint: "Documentos sempre em japon\u00eas",
     australiaHint: "Documentos sempre em ingl\u00eas australiano",
-    printA4: "Imprimir A4",
+    printA4: "Imprimir / Salvar PDF",
     savePdf: "Salvar PDF",
     sendToTax: "Enviar dados para declara\u00e7\u00e3o",
     exportUnavailable: "A exporta\u00e7\u00e3o para declara\u00e7\u00e3o est\u00e1 dispon\u00edvel na tela de relat\u00f3rios.",
@@ -117,7 +117,7 @@ const documentGeneratorText: Record<
     australia: "\u30aa\u30fc\u30b9\u30c8\u30e9\u30ea\u30a2",
     japanHint: "\u66f8\u985e\u306f\u5e38\u306b\u65e5\u672c\u8a9e\u3067\u4f5c\u6210\u3055\u308c\u307e\u3059",
     australiaHint: "\u66f8\u985e\u306f\u5e38\u306b\u30aa\u30fc\u30b9\u30c8\u30e9\u30ea\u30a2\u82f1\u8a9e\u3067\u4f5c\u6210\u3055\u308c\u307e\u3059",
-    printA4: "A4\u5370\u5237",
+    printA4: "\u5370\u5237 / PDF\u4fdd\u5b58",
     savePdf: "PDF\u4fdd\u5b58",
     sendToTax: "\u7533\u544a\u30b7\u30b9\u30c6\u30e0\u3078\u9001\u4fe1",
     exportUnavailable: "\u7533\u544a\u30b7\u30b9\u30c6\u30e0\u3078\u306e\u9001\u4fe1\u306f\u30ec\u30dd\u30fc\u30c8\u753b\u9762\u3067\u5229\u7528\u3067\u304d\u307e\u3059\u3002",
@@ -134,7 +134,7 @@ const documentGeneratorText: Record<
     australia: "Australia",
     japanHint: "Documents always in Japanese",
     australiaHint: "Documents always in Australian English",
-    printA4: "Print A4",
+    printA4: "Print / Save PDF",
     savePdf: "Save PDF",
     sendToTax: "Send to Tax System",
     exportUnavailable: "Tax system export is available from the reports page.",
@@ -503,12 +503,12 @@ export function DocumentGenerator({
       </Button>
 
       {isOpen ? (
-        <div className="fixed inset-0 z-50 grid place-items-center bg-ink/35 p-4">
-          <section className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-line bg-white p-5 shadow-soft">
-            <div className="flex items-start justify-between gap-4">
+        <div className="fixed inset-0 z-50 grid place-items-center bg-ink/35 p-3 sm:p-4">
+          <section className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-line bg-white p-4 shadow-soft sm:p-5">
+            <div className="flex min-w-0 items-start justify-between gap-3 sm:gap-4">
               <div>
                 <p className="text-sm font-semibold text-jade-700">{text.modalKicker}</p>
-                <h2 className="mt-1 text-xl font-semibold text-ink">{t("chooseDocument")}</h2>
+                <h2 className="mt-1 text-lg font-semibold text-ink sm:text-xl">{t("chooseDocument")}</h2>
                 <p className="mt-2 text-sm text-zinc-500">{text.modalHint}</p>
               </div>
               <button
@@ -521,10 +521,10 @@ export function DocumentGenerator({
               </button>
             </div>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-3 sm:mt-5 sm:grid-cols-2">
               {availableMarkets.map((market) => (
                 <button
-                  className={`rounded-lg border p-4 text-left transition ${
+                  className={`rounded-lg border p-3 text-left transition sm:p-4 ${
                     selectedMarket === market ? "border-jade-600 bg-jade-50" : "border-line bg-white hover:bg-paper"
                   }`}
                   key={market}
@@ -537,11 +537,11 @@ export function DocumentGenerator({
               ))}
             </div>
 
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-3 sm:mt-5 sm:grid-cols-2">
               {selectedMarket === "JP"
                 ? japaneseDocumentTypes.map((type) => (
                     <button
-                      className={`rounded-lg border p-4 text-left transition ${
+                      className={`rounded-lg border p-3 text-left transition sm:p-4 ${
                         safeJapaneseType === type ? "border-jade-600 bg-jade-50" : "border-line bg-white hover:bg-paper"
                       }`}
                       key={type}
@@ -556,7 +556,7 @@ export function DocumentGenerator({
                   ))
                 : australianDocumentTypes.map((type) => (
                     <button
-                      className={`rounded-lg border p-4 text-left transition ${
+                      className={`rounded-lg border p-3 text-left transition sm:p-4 ${
                         safeAustralianType === type ? "border-jade-600 bg-jade-50" : "border-line bg-white hover:bg-paper"
                       }`}
                       key={type}
@@ -571,7 +571,7 @@ export function DocumentGenerator({
                   ))}
             </div>
 
-            <div className="mt-5 rounded-lg border border-line bg-paper p-4 text-sm text-zinc-600">
+            <div className="mt-4 rounded-lg border border-line bg-paper p-3 text-sm text-zinc-600 sm:mt-5 sm:p-4">
               <p>
                 Market: <strong>{selectedMarket === "JP" ? text.japan : text.australia}</strong>
               </p>
@@ -593,20 +593,13 @@ export function DocumentGenerator({
               </div>
             ) : null}
 
-            <div className="mt-5 grid gap-2 sm:grid-cols-3 lg:grid-cols-6">
+            <div className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               <Button disabled={actionsDisabled} isLoading={isGenerating} onClick={() => generate("preview")} type="button" variant="secondary">
                 {t("preview")}
               </Button>
-              <Button disabled={actionsDisabled} isLoading={isGenerating} onClick={() => generate("print")} type="button" variant="secondary">
+              <Button disabled={actionsDisabled} isLoading={isGenerating} onClick={() => generate("print")} type="button">
                 <Printer className="h-4 w-4" aria-hidden="true" />
                 {text.printA4}
-              </Button>
-              <Button disabled={actionsDisabled} isLoading={isGenerating} onClick={() => generate("download")} type="button">
-                <FileDown className="h-4 w-4" aria-hidden="true" />
-                {text.savePdf}
-              </Button>
-              <Button disabled={actionsDisabled} isLoading={isGenerating} onClick={() => generate("download")} type="button" variant="secondary">
-                {t("download")}
               </Button>
               <Button disabled={actionsDisabled} isLoading={isGenerating} onClick={() => generate("share")} type="button" variant="secondary">
                 <Share2 className="h-4 w-4" aria-hidden="true" />

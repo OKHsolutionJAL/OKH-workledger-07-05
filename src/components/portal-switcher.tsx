@@ -26,14 +26,16 @@ export function PortalSwitcher({ compact = false }: PortalSwitcherProps) {
   return (
     <div className={compact ? "grid gap-2" : "flex flex-wrap items-center gap-2"}>
       <button
-        className="rounded-md border border-line bg-white px-3 py-2 text-sm font-semibold text-ink transition hover:bg-paper"
+        className="min-h-9 rounded-md border border-line bg-white px-2.5 py-1.5 text-xs font-semibold text-ink transition hover:bg-paper sm:min-h-10 sm:px-3 sm:py-2 sm:text-sm"
         onClick={() => switchPortal(activePortal === "worker" ? "client_company" : "worker")}
         type="button"
+        title="Trocar portal"
       >
-        Trocar portal
+        <span className="sm:hidden">Trocar</span>
+        <span className="hidden sm:inline">Trocar portal</span>
       </button>
       {!compact ? (
-        <span className="text-xs text-zinc-500">{activePortal === "worker" ? "Portal do Emissor" : "Portal do Cliente/Contratante"}</span>
+        <span className="hidden text-xs text-zinc-500 sm:inline">{activePortal === "worker" ? "Portal do Emissor" : "Portal do Cliente/Contratante"}</span>
       ) : null}
     </div>
   );

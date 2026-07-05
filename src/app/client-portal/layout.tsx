@@ -42,7 +42,7 @@ export default async function ClientPortalLayout({ children }: { children: React
       </aside>
 
       <div className="md:pl-72">
-        <header className="sticky top-0 z-20 border-b border-line bg-white/95 px-4 py-4 backdrop-blur md:px-8">
+        <header className="sticky top-0 z-20 border-b border-line bg-white/95 px-3 py-3 backdrop-blur sm:px-4 sm:py-4 md:px-8">
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-jade-700">Client / Contractor Portal</p>
@@ -65,7 +65,7 @@ export default async function ClientPortalLayout({ children }: { children: React
             <ClientPortalLogoutButton className="shrink-0 px-3 py-2 text-xs" label="Sair" />
           </nav>
         </header>
-        <main className="mx-auto w-full max-w-7xl px-4 py-6 md:px-8">{children}</main>
+        <main className="mx-auto w-full max-w-7xl min-w-0 px-3 py-4 sm:px-4 sm:py-6 md:px-8">{children}</main>
       </div>
     </div>
   );
