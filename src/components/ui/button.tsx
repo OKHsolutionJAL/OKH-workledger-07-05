@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "bg-jade-600 text-white hover:bg-jade-700 focus-visible:ring-jade-600",
-  secondary: "border border-line bg-white text-ink hover:bg-paper focus-visible:ring-jade-600",
-  ghost: "text-zinc-700 hover:bg-paper focus-visible:ring-jade-600",
+  primary: "bg-[#FF6A00] text-white hover:bg-[#E55F00] focus-visible:ring-[#FF6A00]",
+  secondary: "border border-line bg-white text-ink hover:bg-paper focus-visible:ring-[#1E3A8A]",
+  ghost: "text-zinc-700 hover:bg-paper focus-visible:ring-[#1E3A8A]",
   danger: "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-600"
 };
 

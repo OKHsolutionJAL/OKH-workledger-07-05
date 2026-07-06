@@ -4,7 +4,7 @@
 
 :root {
   color-scheme: light;
-  background: #f7f8f8;
+  background: #f8fafc;
 }
 
 * {
@@ -21,8 +21,9 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at top left, rgba(15, 118, 110, 0.08), transparent 28rem),
-    #f7f8f8;
+    radial-gradient(circle at top left, rgba(255, 106, 0, 0.08), transparent 26rem),
+    radial-gradient(circle at top right, rgba(30, 58, 138, 0.08), transparent 30rem),
+    #f8fafc;
   color: #1f2933;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -917,7 +918,7 @@ table {
 
 @layer components {
   .page-title {
-    @apply text-2xl font-semibold tracking-normal text-ink sm:text-3xl;
+    @apply text-2xl font-semibold tracking-normal text-[#0B132B] sm:text-3xl;
   }
 
   .section-panel {
@@ -929,7 +930,7 @@ table {
   }
 
   .data-table {
-    @apply min-w-full divide-y divide-line text-left text-sm;
+    @apply min-w-[680px] divide-y divide-line text-left text-sm;
   }
 
   .data-table th {
